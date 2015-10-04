@@ -41,11 +41,9 @@ class Blog(Base):
     
 # 初始化数据库连接:
 engine = create_engine('mysql+mysqlconnector://root:123456@localhost:3306/test')
-# 创建DBSession类型:
+# 创建DBSession类型:asd
 DBSession = sessionmaker(bind=engine)
 session  = DBSession()
 def getSession():
     return session
-
-
 
