@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block header %}
+<title>blog</title>
+{% end %}
+{% block body %}
+    <div class="container navbar-fixed-top">
+		<ul class="nav nav-pills">
+  			<li role="presentation"><a href="/">Home</a></li>
+ 		   <li role="presentation"><a href="/category">category</a></li>
+ 			<li role="presentation" class="active"><a href="/blog">blog</a></li>
+		</ul>
+
+   </div> <!-- /container -->
+{% end %}

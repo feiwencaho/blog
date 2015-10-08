@@ -1,17 +1,28 @@
-#coding=utf8
+#encoding:utf8
 '''
 Created on 2015年10月4日
 @author: fei
 '''
-import os
+import tornado.httpserver
+import tornado.ioloop
 import tornado.options
+import tornado.web
+import os
 from tornado.options import define, options
+from handler.loginhandler import LoginHandler
+from handler.homehandler import HomeHandler
+from handler.categoryhandler import CategoryHandler
+from handler.bloghandler import BlogHandler
+from handler.basehandler import BaseHandler
 define( 'port', default = 80, help = 'run on the given port', type = int )
 class Application(tornado.web.Application):
     def __init__(self):
         handlers=[
-            (r'/login')
-        
+            (r'/login',LoginHandler),
+            (r'/',HomeHandler),
+            (r'/category',CategoryHandler),
+            (r'/blog',BlogHandler),
+            (r'.*',BaseHandler)
         ]
 
         settings = {
@@ -19,7 +30,8 @@ class Application(tornado.web.Application):
             'template_path':os.path.join(os.path.dirname(__file__), 'templates'),
             'cookie_secret':'LTUuWi7iImgJNDRdvAEB4beRGc/Qu=Wq=',
             'login_url':'/login',
-            'debug':True
+            'debug':True,
+            'auto_reload':True
             }
         tornado.web.Application.__init__(self, handlers = handlers,**settings)
 
@@ -28,12 +40,5 @@ if __name__ == '__main__':
     http_server = tornado.httpserver.HTTPServer( Application(), xheaders=True )
     http_server.listen(options.port)
     tornado.ioloop.IOLoop.instance().start()
-
-
-
-
-
-
-
 
 

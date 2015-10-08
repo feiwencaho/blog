@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+	<meta charset="utf-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+   <meta name="description" content="">
+   <meta name="author" content="fei" >
+	{% block header %}{% end %}
+   <!-- Bootstrap core CSS -->
+   <link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/static/bootstrap/css/bootstrap.css" rel="stylesheet">
+	<link href="/static/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
+   <!-- Custom styles for this template -->
+   <link href="/static/css/signin.css" rel="stylesheet">
+
+	<script type="text/javascript" src="/static/js/jquery-1.9.1.js"></script>
+	
+	<script type="text/javascript" src="/static/bootstrap/js/bootstrap.js"></script>
+	<script type="text/javascript" src="/static/bootstrap/js/bootstrap.min.js"></script>
+	
+	<script type="text/javascript" src="/static/bootstrap/js/npm.js"></script>
+  	</head>
+  	
+  	<body>
+
+		{% block body %}{% end %}
+    	<!-- IE10 viewport hack for Surface/desktop Windows 8 bug 
+    	<script src="/static/../../assets/js/ie10-viewport-bug-workaround.js"></script>-->
+  	</body>
+</html>

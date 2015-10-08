@@ -1,0 +1,11 @@
+{% extends base.html %}
+
+{% block header %}
+	<title>网页没有找到</title>
+{% end %}
+
+{% block body %}
+
+	<h1>啊哦，没有找到你想要的资源哦...</h1>
+
+{% end %}

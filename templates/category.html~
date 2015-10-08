@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block header %}
+<title>category</title>
+{% end %}
+{% block body %}
+    <div class="container">
+		<ul class="nav nav-pills">
+  			<li role="presentation"><a href="/">Home</a></li>
+ 		   <li role="presentation" class="active"><a href="/category">category</a></li>
+ 			<li role="presentation"><a href="/blog">blog</a></li>
+		</ul>
+		
+		<br>
+		<br>
+		<div class="page-header">
+			<h1>分类</h1>
+		</div>
+		
+<!-- 		<a data-toggle="modal" href="#addCategory" class="btn btn-primary">增加分类</a>
+
+		<table class="table" border="1" cellpadding="20">
+			<tr>
+				<td>分类编号</td>
+				<td>分类名称</td>
+				<td colspan="2">操作</td>
+
+			</tr>
+			{% for item in categories %}			
+				<tr>
+					<td>{{ item.id }}</td>
+					<td>{{ item.categoryname }}</td>
+					<td><button name="{{item.id}}" type="button">修改</button></td>
+					<td><button name="{{item.id}}" type="button">删除</button></td>			
+				</tr>		
+
+			{% end %}
+		</table>
+		 -->
+		 
+		<div  id="addCategory">
+			<div class="modal-header">
+
+				<h4>增加分类</h4>
+
+			</div>
+
+			<div class="modal-body">
+				<form class="form-horizontal" method="POST" action="/addCategory">
+					<label>分类名称</label><input type="text" name="categoryname"/>
+
+				</form>
+			
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary">提交</button>			
+			</div>
+		</div>
+   </div> <!-- /container -->
+
+<script type="text/javascript" >
+
+	function addCategory() {
+		alert("hehe")
+		$("#addCategory").modal("show");
+
+	}
+
+</script>
+
+{% end %}
+
+
+
+
