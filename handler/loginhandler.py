@@ -10,7 +10,7 @@ from orm.orm import UserOrm
 class LoginHandler(BaseHandler):
     def get(self):
         self.render('login.html')
-        
+
     def post(self):
         userOrm = UserOrm(session=self.session)
         username = self.get_argument('username')

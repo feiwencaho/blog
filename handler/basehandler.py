@@ -18,19 +18,15 @@ class BaseHandler(tornado.web.RequestHandler):
     def get(self):
         print('get is called...')
         self.write_error(404)
-        
+
     def on_finish(self):
         print('on_finish is called...')
         self.session.close()
-    
+
     def write_error(self, status_code, **kwargs):
         print('write_error is called...')
         if status_code == 404:
             self.render('404.html')
-        
+
         if status_code == 500:
             self.write('xixi500')
-        
-        
-        
-        

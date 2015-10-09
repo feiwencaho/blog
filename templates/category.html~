@@ -38,7 +38,7 @@
 		</table>
 		 -->
 		 
-		<div  id="addCategory">
+		<div class="modal" id="addCategory">
 			<div class="modal-header">
 
 				<h4>增加分类</h4>
