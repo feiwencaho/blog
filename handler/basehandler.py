@@ -4,7 +4,8 @@ Created on 2015年10月4日
 @author: fei
 '''
 import tornado.web
-from orm.models import getSession
+from db_model.model import get_session
+
 
 class BaseHandler(tornado.web.RequestHandler):
     def get_current_user(self):
@@ -13,7 +14,7 @@ class BaseHandler(tornado.web.RequestHandler):
 
     def initialize(self):
         print('initialize is called...')
-        self.session = getSession()
+        self.session = get_session()
 
     def get(self):
         print('get is called...')
