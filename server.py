@@ -9,7 +9,8 @@ import tornado.options
 import tornado.web
 import os
 from tornado.options import define, options
-from handler.handler import LoginHandler, IndexHandler, EditHandler, PostsHandler, CategoriesHandler, PostHandler, AboutHandler
+from handler.handler import LoginHandler, IndexHandler, EditHandler, \
+    PostsHandler, CategoriesHandler, PostHandler, AboutHandler
 
 
 define('port', default=8080, help='run on the given port', type=int)

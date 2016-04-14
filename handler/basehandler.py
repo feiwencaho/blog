@@ -18,6 +18,19 @@ class BaseHandler(tornado.web.RequestHandler):
         self.write_error(404)
 
     def on_finish(self):
+        print('get_current_user is called...')
+        return self.get_secure_cookie('username')
+
+    def initialize(self):
+        print('initialize is called...')
+        self.session = get_session()
+
+    def get(self):
+        print('get is called...')
+        self.write_error(404)
+
+    def on_finish(self):
+        print('on_finish is called...')
         self.session.close()
 
     def write_error(self, status_code, **kwargs):

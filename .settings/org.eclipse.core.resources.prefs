@@ -1,0 +1,9 @@
+eclipse.preferences.version=1
+encoding//handler/basehandler.py=utf8
+encoding//handler/bloghandler.py=utf8
+encoding//handler/categoryhandler.py=utf8
+encoding//handler/homehandler.py=utf8
+encoding//handler/loginhandler.py=utf8
+encoding//orm/models.py=utf8
+encoding//orm/orm.py=utf8
+encoding/server.py=utf8
