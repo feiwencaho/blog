@@ -11,6 +11,7 @@ import os
 from tornado.options import define, options
 from handler.handler import LoginHandler, IndexHandler, EditHandler, \
     PostsHandler, CategoriesHandler, PostHandler, AboutHandler
+from tools import session
 
 
 define('port', default=8080, help='run on the given port', type=int)
@@ -34,9 +35,21 @@ class Application(tornado.web.Application):
             'cookie_secret': 'LTUuWi7iImgJNDRdvAEB4beRGc/Qu=Wq=',
             'login_url': '/',
             'debug': True,
-            'auto_reload': True
+            'auto_reload': True,
+
+            # session settings
+            'session_secret': '123123',
+            'store_options': {
+                'redis_host': 'localhost',
+                'redis_port': 6379,
+                'redis_pass': '',
+            },
+            'session_timeout': 60
         }
         tornado.web.Application.__init__(self, handlers=handlers, **settings)
+        self.session_manager = session.SessionManager(
+            settings['session_secret'], settings['store_options'], settings['session_timeout'])
+
 
 if __name__ == '__main__':
     tornado.options.parse_command_line()

@@ -18,12 +18,15 @@ class LoginHandler(BaseHandler):
     def post(self):
         username = self.get_argument('username')
         password = self.get_argument('password')
-        user = User(username=username, password=password)
+        # user = User(username=username, password=password)
         u = db_table.user.find_user_by_username(username)
         if u:
             if u.password == password:
                 #login success
-                self.set_secure_cookie('username', username)
+                # self.set_secure_cookie('username', username)
+                self.session['username'] = username
+                self.session.save()
+                print 'session ================= ', self.session['username']
                 self.write('1')
         else:
             #login fail
@@ -41,6 +44,7 @@ class IndexHandler(BaseHandler):
 class EditHandler(BaseHandler):
     @authenticated
     def get(self):
+        print 'username ================== ', self.get_current_user()
         categories = db_table.category.find_all_categories()
         return self.render('write.html', categories=categories)
 

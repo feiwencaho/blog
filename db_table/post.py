@@ -5,7 +5,7 @@ from db_model.model import get_session
 
 
 def find_all_posts():
-    return get_session().query(Post).all()
+    return get_session().query(Post).order_by(Post.create_time.desc()).all()
 
 
 def find_post_by_post_id(post_id):
@@ -13,7 +13,7 @@ def find_post_by_post_id(post_id):
 
 
 def find_posts_by_category_id(category_id):
-    return get_session().query(Post).filter_by(category_id=category_id).all()
+    return get_session().query(Post).filter_by(category_id=category_id).order_by(Post.create_time.desc()).all()
 
 
 def create_post(category_id, title, summary, content, user_id):

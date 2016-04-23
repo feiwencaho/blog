@@ -10,6 +10,7 @@ from datetime import datetime
 from sqlalchemy.orm.session import sessionmaker
 from sqlalchemy.sql.schema import ForeignKey
 
+
 Base = declarative_base()
 
 
