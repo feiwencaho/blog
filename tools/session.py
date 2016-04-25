@@ -13,12 +13,6 @@ class SessionData(dict):
         super(SessionData, self).__init__(session_id=session_id, hmac_key=hmac_key)
         self.session_id = session_id
         self.hmac_key = hmac_key
-#	@property
-#	def sid(self):
-#		return self.session_id
-#	@x.setter
-#	def sid(self, value):
-#		self.session_id = value
 
 
 class Session(SessionData):
@@ -60,11 +54,11 @@ class SessionManager(object):
     def _fetch(self, session_id):
         try:
             session_data = raw_data = self.redis.get(session_id)
-            if raw_data != None:
+            if raw_data is not None:
                 self.redis.setex(session_id, self.session_timeout, raw_data)
                 session_data = json.loads(raw_data)
 
-            if type(session_data) == type({}):
+            if isinstance(session_data, dict):
                 return session_data
             else:
                 return {}
@@ -72,14 +66,14 @@ class SessionManager(object):
             return {}
 
     def get(self, request_handler=None):
-        if request_handler == None:
+        if request_handler is None:
             session_id = None
             hmac_key = None
         else:
             session_id = request_handler.get_secure_cookie("session_id")
             hmac_key = request_handler.get_secure_cookie("verification")
 
-        if session_id == None:
+        if session_id is None:
             session_exists = False
             session_id = self._generate_id()
             hmac_key = self._generate_hmac(session_id)

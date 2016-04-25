@@ -36,17 +36,24 @@ class LoginHandler(BaseHandler):
 class IndexHandler(BaseHandler):
     @db_flush
     def get(self):
+        username = self.get_current_user()
+        user = None
+        if username:
+            user = db_table.user.find_user_by_username(username)
         posts = db_table.post.find_all_posts()
         categories = db_table.category.find_all_categories()
-        return self.render('index.html', posts=posts, categories=categories)
+        return self.render('index.html', posts=posts, categories=categories, user=user)
 
 
 class EditHandler(BaseHandler):
     @authenticated
     def get(self):
-        print 'username ================== ', self.get_current_user()
+        username = self.get_current_user()
+        user = None
+        if username:
+            user = db_table.user.find_user_by_username(username)
         categories = db_table.category.find_all_categories()
-        return self.render('write.html', categories=categories)
+        return self.render('write.html', categories=categories, user=user)
 
 
 class CategoriesHandler(BaseHandler):
@@ -65,11 +72,15 @@ class CategoriesHandler(BaseHandler):
 
 class PostsHandler(BaseHandler):
     def get(self):
+        user = None
+        username = self.get_current_user()
+        if username:
+            user = db_table.user.find_user_by_username(username)
         category_id = self.get_argument('category_id', None)
         if category_id:
             categories = db_table.category.find_all_categories()
             posts = db_table.post.find_posts_by_category_id(category_id)
-            return self.render('index.html', posts=posts, categories=categories)
+            return self.render('index.html', posts=posts, categories=categories, user=user)
 
     @db_flush
     @authenticated
@@ -92,13 +103,28 @@ class PostsHandler(BaseHandler):
 
 class PostHandler(BaseHandler):
     def get(self, post_id):
+        user = None
+        username = self.get_current_user()
+        if username:
+            user = db_table.user.find_user_by_username(username)
         post = db_table.post.find_post_by_post_id(post_id)
-        return self.render('post.html', post=post)
+        return self.render('post.html', post=post, user=user)
 
 
 class AboutHandler(BaseHandler):
     def get(self):
-        self.render('about.html')
+        user = None
+        username = self.get_current_user()
+        if username:
+            user = db_table.user.find_user_by_username(username)
+        self.render('about.html', user=user)
+
+
+class LogoutHandler(BaseHandler):
+    def get(self, user_id):
+        self.session['username'] = None
+        self.session.save()
+        self.redirect('/')
 
 
 

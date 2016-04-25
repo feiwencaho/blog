@@ -10,7 +10,7 @@ import tornado.web
 import os
 from tornado.options import define, options
 from handler.handler import LoginHandler, IndexHandler, EditHandler, \
-    PostsHandler, CategoriesHandler, PostHandler, AboutHandler
+    PostsHandler, CategoriesHandler, PostHandler, AboutHandler, LogoutHandler
 from tools import session
 
 
@@ -26,7 +26,8 @@ class Application(tornado.web.Application):
             (r'/posts', PostsHandler),
             (r'/categories', CategoriesHandler),
             (r'/post/([0-9]?)', PostHandler),
-            (r'/about', AboutHandler)
+            (r'/about', AboutHandler),
+            (r'/logout/([0-9]?)', LogoutHandler)
         ]
 
         settings = {
@@ -38,13 +39,13 @@ class Application(tornado.web.Application):
             'auto_reload': True,
 
             # session settings
-            'session_secret': '123123',
+            'session_secret': 'session_secret',
             'store_options': {
                 'redis_host': 'localhost',
                 'redis_port': 6379,
                 'redis_pass': '',
             },
-            'session_timeout': 60
+            'session_timeout': 60*60*24
         }
         tornado.web.Application.__init__(self, handlers=handlers, **settings)
         self.session_manager = session.SessionManager(
