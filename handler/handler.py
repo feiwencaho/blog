@@ -69,6 +69,9 @@ class CategoriesHandler(BaseHandler):
         else:
             raise Exception('categoryname cannot be empty!')
 
+    @authenticated
+    def delete(self, category_id):
+        return db_table.category.delete_category_by_id(category_id)
 
 class PostsHandler(BaseHandler):
     def get(self):
@@ -109,6 +112,10 @@ class PostHandler(BaseHandler):
             user = db_table.user.find_user_by_username(username)
         post = db_table.post.find_post_by_post_id(post_id)
         return self.render('post.html', post=post, user=user)
+
+    @authenticated
+    def delete(self, post_id):
+        return self.write(db_table.post.delete_post_by_post_id(post_id))
 
 
 class AboutHandler(BaseHandler):

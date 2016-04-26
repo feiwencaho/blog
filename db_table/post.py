@@ -16,6 +16,10 @@ def find_posts_by_category_id(category_id):
     return get_session().query(Post).filter_by(category_id=category_id).order_by(Post.create_time.desc()).all()
 
 
+def delete_post_by_post_id(post_id):
+    return get_session().delete(find_post_by_post_id(post_id))
+
+
 def create_post(category_id, title, summary, content, user_id):
     get_session().add(Post(
         category_id=category_id, title=title, summary=summary, content=content, user_id=user_id))

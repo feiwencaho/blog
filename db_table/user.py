@@ -1,7 +1,5 @@
-__author__ = 'fei'
-
-
 from db_model.model import User, get_session
+
 
 def create_user(user):
     return get_session().add(user)

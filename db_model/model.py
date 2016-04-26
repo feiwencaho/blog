@@ -38,7 +38,7 @@ class Post(Base):
     __tablename__ = 'post'
 
     post_id = Column(Integer,autoincrement=True, primary_key=True)
-    category_id = Column(Integer, ForeignKey('category.category_id'))
+    category_id = Column(Integer, ForeignKey('category.category_id', onupdate=True, ondelete=True))
     title = Column(String(64))
     summary = Column(String(256))
     content = Column(BLOB)

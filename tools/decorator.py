@@ -19,8 +19,6 @@ def db_flush(func):
     return wrapper
 
 
-
-
 def b(func):
     def wrapper(args):
         print 'before'
