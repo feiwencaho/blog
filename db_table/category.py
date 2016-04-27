@@ -18,8 +18,9 @@ def find_category_by_id(category_id):
 
 
 def delete_category_by_id(category_id):
-    return get_session().query(Category).delete()
+    return get_session().delete(find_category_by_id(category_id))
 
 
 def update_category(category):
     pass
+
