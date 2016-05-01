@@ -14,52 +14,52 @@
 }
 .article pre{
 	padding: 13px;
-margin: 0px 0px 15px;
-font-size: 13px;
-line-height: 1.72222;
-color: white;
-white-space: pre;
-background-color: #383737;
-border: 2px solid #FFF;
-border-radius: 6px;
-font-weight: bold;
+	margin: 0px 0px 15px;
+	font-size: 13px;
+	line-height: 1.72222;
+	color: white;
+	white-space: pre;
+	background-color: #383737;
+	border: 2px solid #FFF;
+	border-radius: 6px;
+	font-weight: bold;
 }
 .flask-pagedown-preview pre{
 	padding: 13px;
-margin: 0px 0px 15px;
-font-size: 13px;
-line-height: 1.72222;
-color: white;
-white-space: pre;
-background-color: #383737;
-border: 2px solid #FFF;
-border-radius: 6px;
-font-weight: bold;
+	margin: 0px 0px 15px;
+	font-size: 13px;
+	line-height: 1.72222;
+	color: white;
+	white-space: pre;
+	background-color: #383737;
+	border: 2px solid #FFF;
+	border-radius: 6px;
+	font-weight: bold;
 }
 .article hr{
 	margin-top: 20px;
-margin-bottom: 20px;
-border-width: 1px 0px 0px;
-border-style: solid none none;
-border-color: #5F5F5F -moz-use-text-color -moz-use-text-color;
--moz-border-top-colors: none;
--moz-border-right-colors: none;
--moz-border-bottom-colors: none;
--moz-border-left-colors: none;
-border-image: none;
+	margin-bottom: 20px;
+	border-width: 1px 0px 0px;
+	border-style: solid none none;
+	border-color: #5F5F5F -moz-use-text-color -moz-use-text-color;
+	-moz-border-top-colors: none;
+	-moz-border-right-colors: none;
+	-moz-border-bottom-colors: none;
+	-moz-border-left-colors: none;
+	border-image: none;
 }
 .article blockquote{
 	padding: 8px 8px 8px 16px;
-margin: 0px 0px 30px;
-border-left: 3px solid #6C9EE9;
-background-color: #EDEDED;
+	margin: 0px 0px 30px;
+	border-left: 3px solid #6C9EE9;
+	background-color: #EDEDED;
 }
 .the-font{
 	font-family:"Helvetica Neue",Helvetica,Arial,"Microsoft Yahei","Hiragino Sans GB","Heiti SC","WenQuanYi Micro Hei",sans-serif;
 }
 form blockquote{
 	padding: 8px 8px 8px 16px;
-margin: 0px 0px 30px;
-border-left: 3px solid #6C9EE9;
-background-color: #EDEDED;
+	margin: 0px 0px 30px;
+	border-left: 3px solid #6C9EE9;
+	background-color: #EDEDED;
 }

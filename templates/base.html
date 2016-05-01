@@ -72,29 +72,39 @@
 <script type="text/javascript">
 </script>
 <body style="background-color:#EEE">
-<nav class="navbar navbar-default navbar-Amethyst" role="navigation" style="margin:10px 0px;">
+<nav class="navbar navbar-default navbar-Amethyst navbar-fixed-top" role="navigation" style="background-color: #6684e1">
     <div class="container">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-01">
+            {#<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-01">
                 <span class="sr-only">Toggle navigation</span>
-            </button>
+            </button>#}
             <a class="navbar-brand" href="/">CafeBabe</a>
         </div>
         <div class="collapse navbar-collapse" id="navbar-collapse-01">
 
             <ul class="nav navbar-nav">
-                <li>
+                <li><a href="/" class="active">Blog</a></li>
+                <li><a href="/about">About me</a></li>
+                <li class="navbar-form navbar-right">
+
+                    <form action="/search" class="navbar-right" role="search">
+                        <label class="sr-only">S</label>
+                        <div class="form-group">
+                            <input type="text" placeholder="search">
+                        </div>
+                        <div class="form-group">
+                            <input class="btn btn-default" type="submit" value="Go">
+                        </div>
+
+                    </form>
 
                 </li>
-                <li class="active"><a href="/">Blog</a></li>
-                <li><a href="/about">AboutMe</a></li>
-
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 {% if user %}
-                    <li>welcome, {{ user.username }} <a href="/logout/{{ user.user_id }}">logout</a></li>
+                <li>welcome, {{ user.username }} <a href="/logout/{{ user.user_id }}">logout</a></li>
                 {% else %}
-                    <li id="signin_icon"><a href="#">SignIn</a></li>
+                <li id="signin_icon"><a href="#">SignIn</a></li>
                 {% end %}
             </ul>
         </div><!-- /.navbar-collapse -->

@@ -19,6 +19,7 @@ class BaseHandler(tornado.web.RequestHandler):
         return self.session.get('username')
 
     def get(self):
+        print '404'
         self.write_error(404)
 
     def write_error(self, status_code, **kwargs):
