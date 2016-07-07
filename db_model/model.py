@@ -48,31 +48,31 @@ class Post(Base):
 
 
 #
-# class Writer(Base):
-#     __tablename__ = 'writer'
-#
-#     id = Column(Integer, autoincrement=True, primary_key=True)
-#     name = Column(String(20))
-#     # 一对多:
-#     books = relationship('Book', backref='writer')
-#     def __repr__(self):
-#         return "<Writer name:%s>" % self.name
-#
-#
-# class Book(Base):
-#     __tablename__ = 'book'
-#
-#     id = Column(Integer,autoincrement=True, primary_key=True)
-#     name = Column(String(20))
-#     # “多”的一方的book表是通过外键关联到user表的:
-#     writer_id = Column(Integer, ForeignKey('writer.id'))
-#
-#     def __repr__(self):
-#         return "<Book name:%s>" % self.name
+class Writer(Base):
+    __tablename__ = 'writer'
+
+    id = Column(Integer, autoincrement=True, primary_key=True)
+    name = Column(String(20))
+    # 一对多:
+    books = relationship('Book', backref='writer')
+    def __repr__(self):
+        return "<Writer name:%s>" % self.name
+
+
+class Book(Base):
+    __tablename__ = 'book'
+
+    id = Column(Integer,autoincrement=True, primary_key=True)
+    name = Column(String(20))
+    # “多”的一方的book表是通过外键关联到user表的:
+    writer_id = Column(Integer, ForeignKey('writer.id'))
+
+    def __repr__(self):
+        return "<Book name:%s>" % self.name
 
 
 # 初始化数据库连接:
-engine = create_engine('mysql+mysqlconnector://root:123456@localhost:3306/blog')
+engine = create_engine('mysql+mysqlconnector://root:123456@localhost:3306/blog', echo=True)
 # 创建DBSession类型:
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
@@ -88,17 +88,32 @@ def rebuild_db():
 
 
 if __name__ == '__main__':
-    rebuild_db()
-    user = User(username='admin', password='123')
-    get_session().add(user)
-    get_session().commit()
-    # writer = Writer(name='aaa')
-    # book = Book(name='bbb')
-    # get_session().add(writer)
-    # get_session().add(book)
+    # rebuild_db()
+    # user = User(username='admin', password='123')
+    # get_session().add(user)
     # get_session().commit()
+    writer = Writer(name='33')
+
+    book = Book(name='44')
+    try:
+        get_session().add(writer)
+        # raise Exception()
+        get_session().add(book)
+    except Exception as e:
+        get_session().rollback()
+        print 'rollback'
+    finally:
+        get_session().flush()
+        get_session().flush()
+        get_session().flush()
+        get_session().flush()
+        get_session().flush()
+        get_session().commit()
+        get_session().close()
     # book = get_session().query(Book).first()
     # writer = get_session().query(Writer).first()
     # writer.books = [book]
     # get_session().commit()
-    # print book.writer
+
+    print get_session().query(Book).all()
+    print get_session().query(Writer).all()

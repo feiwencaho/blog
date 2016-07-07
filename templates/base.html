@@ -93,7 +93,7 @@
                             <input type="text" placeholder="search">
                         </div>
                         <div class="form-group">
-                            <input class="btn btn-default" type="submit" value="Go">
+                            <input class="btn btn-primary" type="submit" value="Go">
                         </div>
 
                     </form>
@@ -102,9 +102,9 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 {% if user %}
-                <li>welcome, {{ user.username }} <a href="/logout/{{ user.user_id }}">logout</a></li>
+                <li>welcome, {{ user.username }} <a href="/logout/{{ user.user_id }}">Log out</a></li>
                 {% else %}
-                <li id="signin_icon"><a href="#">SignIn</a></li>
+                <li id="signin_icon"><a href="#" role="button" class="btn btn-primary">Sign In</a></li>
                 {% end %}
             </ul>
         </div><!-- /.navbar-collapse -->
@@ -144,7 +144,8 @@
     <div class="container">
         <div class="row" style="padding-top:30px;">
             <div class="col-md-7">
-                <p class="lead"> Designed and built with all the love in the world by the Mr.<a href="/">ALJUN</a>.</p>
+                <p>网站声明：</p>
+                <p> <small>此网站作为学习交流网站，而非商业用途的网站，网站信息来自作者原创和第三方网站。任何组织或个人不得利用本网站进行违法或商业行为，违者必追究其法律责任。如果本站内容侵犯了您的专利或者权益，请联系，我们将立刻处理。</small></p>
             </div>
             <div class="col-md-5">
                 <div>

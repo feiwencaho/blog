@@ -36,13 +36,24 @@ class LoginHandler(BaseHandler):
 class IndexHandler(BaseHandler):
     @db_flush
     def get(self):
+        print 'index handler ================================='
         username = self.get_current_user()
         user = None
         if username:
             user = db_table.user.find_user_by_username(username)
-        posts = db_table.post.find_all_posts()
+        current_page = 0
+        start = self.get_argument('start', None)
+        stop = None
+        limit = self.get_argument('limit', None)
+        if start is not None and limit is not None:
+            stop = int(start) + int(limit)
+            current_page = int(start) / 5
+        posts = db_table.post.find_all_posts(start=int(start) if start else None, stop=stop)
+        total = db_table.post.find_posts_count()
+
         categories = db_table.category.find_all_categories()
-        return self.render('index.html', posts=posts, categories=categories, user=user)
+        return self.render('index.html',
+                           posts=posts, categories=categories, user=user, total=total, current_page=current_page)
 
 
 class EditHandler(BaseHandler):
@@ -73,17 +84,28 @@ class CategoriesHandler(BaseHandler):
     def delete(self, category_id):
         return db_table.category.delete_category_by_id(category_id)
 
+
 class PostsHandler(BaseHandler):
     def get(self):
         user = None
         username = self.get_current_user()
+        start = self.get_argument('start', 0)
+        limit = self.get_argument('limit', 5)
+        total = 10
         if username:
             user = db_table.user.find_user_by_username(username)
         category_id = self.get_argument('category_id', None)
         if category_id:
             categories = db_table.category.find_all_categories()
             posts = db_table.post.find_posts_by_category_id(category_id)
-            return self.render('index.html', posts=posts, categories=categories, user=user)
+
+            datas = dict(
+                posts=posts,
+                categories=categories,
+                user=user,
+                total=total
+            )
+            return self.render('index.html', **datas)
 
     @db_flush
     @authenticated
@@ -92,9 +114,11 @@ class PostsHandler(BaseHandler):
         content = self.get_argument('body', None)
         summary = self.get_argument('summary', None)
         user = db_table.user.find_user_by_username(self.get_current_user())
-
+        print 'content ========== ', content
         category_id = self.get_argument('category_id', None)
-
+        import time
+        testname = time.strftime('%Y')
+        db_table.category.create_category(categoryname=categoryname)
         if db_table.category.find_category_by_id(category_id):
             db_table.post.create_post(
                 category_id=category_id, title=title, summary=summary, content=content, user_id=user.user_id)
@@ -134,5 +158,8 @@ class LogoutHandler(BaseHandler):
         self.redirect('/')
 
 
+class SearchHandler(BaseHandler):
+    def get(self):
+        pass
 
 

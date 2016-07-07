@@ -8,14 +8,16 @@ def db_flush(func):
         try:
             print 'before'
             results = func(args)
-            get_session().commit()
+
             print 'after'
             return results
         except Exception as e:
             print e.message
             get_session().rollback()
             args.render('error.html')
-
+            raise
+        finally:
+            get_session().commit()
     return wrapper
 
 

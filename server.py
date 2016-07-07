@@ -10,7 +10,7 @@ import tornado.web
 import os
 from tornado.options import define, options
 from handler.handler import LoginHandler, IndexHandler, EditHandler, \
-    PostsHandler, CategoriesHandler, PostHandler, AboutHandler, LogoutHandler
+    PostsHandler, CategoriesHandler, PostHandler, AboutHandler, LogoutHandler, BaseHandler
 from tools import session
 
 
@@ -27,7 +27,8 @@ class Application(tornado.web.Application):
             (r'/categories', CategoriesHandler),
             (r'/post/([0-9]?)', PostHandler),
             (r'/about', AboutHandler),
-            (r'/logout/([0-9]?)', LogoutHandler)
+            (r'/logout/([0-9]?)', LogoutHandler),
+            (r'/(.*?)', BaseHandler)
         ]
 
         settings = {
