@@ -37,6 +37,8 @@ class IndexHandler(BaseHandler):
     @db_flush
     def get(self):
         print 'index handler ================================='
+        self.render('admin_index.html')
+        return
         username = self.get_current_user()
         user = None
         if username:

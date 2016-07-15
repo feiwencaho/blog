@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Basic Form - jQuery EasyUI Demo</title>
+    <link rel="stylesheet" type="text/css" href="/static/easyui/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="/static/easyui/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="/static/easyui/demo/demo.css">
+    <script type="text/javascript" src="/static/easyui/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/easyui/jquery.easyui.min.js"></script>
+    {#<script type="text/javascript" src="/static/jquery.js"></script>#}
+</head>
+<body class="easyui-layout">
+<div style="margin-left: auto;margin-right: auto"></div>
+
+<div data-options="border:false,region:'north',title:'Blog Management System',split:true" style="height:100px;"></div>
+<div data-options="border:false,region:'south',title:'South Title',split:true" style="height:100px;"></div>
+<div data-options="border:false,region:'east',title:'East',split:true,href:'http://www.baidu.com'" style="width:100px;"></div>
+<div data-options="border:false,region:'west',title:'West',split:true" style="width:100px;">
+    <ul>
+        <li>aadsd</li>
+        <li>aadsd</li>
+        <li>aadsd</li>
+        <li>aadsd</li>
+        <li>aadsd</li>
+    </ul>
+    <div id="dd" class="easyui-draggable" data-options="handle:'#title'" style="width:100px;height:100px;">
+        <div id="title" style="background:#ccc;">title</div>
+    </div>
+
+</div>
+<div data-options="region:'center',title:'center title'" style="padding:5px;background:#eee;"></div>
+<script>
+    function submitForm(){
+        $('#ff').form('submit');
+    }
+    function clearForm(){
+        $('#ff').form('clear');
+    }
+</script>
+</body>
+</html>
