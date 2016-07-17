@@ -43,7 +43,7 @@ class Post(Base):
     summary = Column(String(256))
     content = Column(BLOB)
     user_id = Column(Integer, ForeignKey('user.user_id'))
-    view_count = Column(Integer)
+    view_count = Column(Integer, default=0)
     create_time = Column(DateTime, default=datetime.now())
 
 

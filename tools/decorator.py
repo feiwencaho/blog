@@ -4,17 +4,13 @@ from db_model.model import get_session
 
 
 def db_flush(func):
-    def wrapper(args):
+    def wrapper(*args, **kwargs):
         try:
-            print 'before'
-            results = func(args)
-
-            print 'after'
+            results = func(*args, **kwargs)
             return results
         except Exception as e:
-            print e.message
             get_session().rollback()
-            args.render('error.html')
+            args[0].render('error.html')
             raise
         finally:
             get_session().commit()

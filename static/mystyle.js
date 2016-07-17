@@ -166,5 +166,7 @@ $(document).ready(function(){
 	});
 
 	CKEDITOR.replace( 'post_content', {extraPlugins: 'codesnippet',codeSnippet_theme: 'zenburn'});
+    CKEDITOR.replace( 'content', {extraPlugins: 'codesnippet',codeSnippet_theme: 'zenburn'});
+
 });
 

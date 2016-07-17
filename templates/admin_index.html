@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Basic Form - jQuery EasyUI Demo</title>
+    <title>博客管理系统</title>
     <link rel="stylesheet" type="text/css" href="/static/easyui/themes/default/easyui.css">
     <link rel="stylesheet" type="text/css" href="/static/easyui/themes/icon.css">
     <link rel="stylesheet" type="text/css" href="/static/easyui/demo/demo.css">
@@ -15,27 +15,124 @@
 
 <div data-options="border:false,region:'north',title:'Blog Management System',split:true" style="height:100px;"></div>
 <div data-options="border:false,region:'south',title:'South Title',split:true" style="height:100px;"></div>
-<div data-options="border:false,region:'east',title:'East',split:true,href:'http://www.baidu.com'" style="width:100px;"></div>
-<div data-options="border:false,region:'west',title:'West',split:true" style="width:100px;">
-    <ul>
-        <li>aadsd</li>
-        <li>aadsd</li>
-        <li>aadsd</li>
-        <li>aadsd</li>
-        <li>aadsd</li>
+<div data-options="border:false,region:'east',title:'East',split:true" style="width:100px;"></div>
+<div data-options="border:false,region:'west',title:'菜单',split:true" style="width:100px;">
+    <ul class="easyui-tree">
+        <li><a href="#" onclick="posts()">文章管理</a></li>
+        <li><a href="#" onclick="categorys()">分类管理</a></li>
+        <li><a href="#" onclick="test()">评论管理</a></li>
     </ul>
-    <div id="dd" class="easyui-draggable" data-options="handle:'#title'" style="width:100px;height:100px;">
-        <div id="title" style="background:#ccc;">title</div>
+
+</div>
+<div data-options="region:'center'" style="background:#eee">
+    <div id="tabs" class="easyui-tabs" style="width:100%;height:100%;">
+        <div title="博文" style="padding:10px;">
+            <table id="dg" class="easyui-datagrid" style="width:100%;height:100%"
+                   data-options="rownumbers:true,singleSelect:true,toolbar:'#tb'">
+                <thead>
+                <tr>
+                    <th data-options="field:'post_id',width:50,align:'center'">博文ID</th>
+                    <th data-options="field:'title',width:300,align:'center'">标题</th>
+                    <th data-options="field:'summary',width:400,align:'center'">概要</th>
+                    <th data-options="field:'create_time',width:100,align:'center'">创建时间</th>
+                    <th data-options="field:'view_counts',width:80,align:'center'">浏览次数</th>
+                    <th data-options="field:'category',width:100,align:'center'">分类</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                {% for post in posts %}
+                <tr>
+                    <td>{{ post.post_id }}</td>
+                    <td>{{ post.title }}</td>
+                    <td>{{ post.summary }}</td>
+                    <td>{{ post.create_time }}</td>
+                    <td>{{ post.view_count }}</td>
+                    <td>{{ post.category.categoryname }}</td>
+                </tr>
+                {% end %}
+                </tbody>
+            </table>
+            <div id="tb" style="padding:5px;height:auto">
+                <div style="margin-bottom:5px">
+                    <a href="#" onclick="addTab('新建博文', '/edit');" class="easyui-linkbutton" iconCls="icon-add" plain="true"></a>
+                    <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true"></a>
+                    {#            <a href="#" class="easyui-linkbutton" iconCls="icon-save" plain="true"></a>#}
+                    {#            <a href="#" class="easyui-linkbutton" iconCls="icon-cut" plain="true"></a>#}
+                    <a href="#" onclick="delete_post();" class="easyui-linkbutton" iconCls="icon-remove" plain="true"></a>
+                </div>
+                <div>
+                    Date From: <input class="easyui-datebox" style="width:80px">
+                    To: <input class="easyui-datebox" style="width:80px">
+                    Language:
+                    <select class="easyui-combobox" panelHeight="auto" style="width:100px">
+                        <option value="java">Java</option>
+                        <option value="c">C</option>
+                        <option value="basic">Basic</option>
+                        <option value="perl">Perl</option>
+                        <option value="python">Python</option>
+                    </select>
+                    <a href="#" class="easyui-linkbutton" iconCls="icon-search">Search</a>
+                </div>
+            </div>
+
+        </div>
+
     </div>
 
 </div>
-<div data-options="region:'center',title:'center title'" style="padding:5px;background:#eee;"></div>
-<script>
-    function submitForm(){
-        $('#ff').form('submit');
+
+<script type="text/javascript">
+    $(document).ready(function(){
+
+    });
+
+    function posts(){
+
     }
-    function clearForm(){
-        $('#ff').form('clear');
+
+    function categorys(){
+
+
+    }
+
+    function delete_post(){
+        var row = $('#dg').datagrid('getSelected');
+        if (row){
+            post_id = row.post_id;
+            $.ajax({
+                url: '/post/' + post_id,
+                method: 'delete',
+                success: function(){
+                    /* 删除成功，刷新页面 */
+                    location.reload();
+                },
+                error: function(){
+                    alert('error');
+                }
+            });
+
+        } else {
+            $.messager.confirm('信息', '请选择要删除的内容', function(r){
+
+            });
+        }
+
+        console.log('delete')
+    }
+
+    function addTab(title, url){;
+        if ($('#tabs').tabs('exists', title)){
+            /** 如果tab已存在，则选中,否则创建新的tab */
+            $('#tabs').tabs('select', title);
+        } else {
+            var content = '<iframe scrolling="auto" frameborder="0"  src="'+url+'" style="width:100%;height:100%;"></iframe>';
+            $('#tabs').tabs('add',{
+                title:title,
+                content:content,
+                closable:true
+            });
+        }
     }
 </script>
 </body>

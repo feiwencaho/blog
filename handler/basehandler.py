@@ -30,3 +30,6 @@ class BaseHandler(tornado.web.RequestHandler):
 
         # if status_code == 500:
         #     self.render('error.html')
+    # def finish(self, chunk=None):
+    #     get_session().commit()
+    #     print 'finish ......... '

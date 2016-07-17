@@ -1,23 +1,13 @@
 {% extends "base.html" %}
 {% block body %}
 
-    {{ pagedown.include_pagedown() }}
+{#    {{ pagedown.include_pagedown() }}#}
 
     <div style="padding-top: 50px" class="container">
         <div class="row">
             <div class="col-md-12">
                 <div style="box-shadow:5px 5px 20px #CCC;background-color:white;padding:20px 30px;margin-bottom:40px;">
                     <h2 class="text-center">TO EDIT THE BLOG!</h2>
-                    {% if messages %}
-                        {% for message in messages %}
-                            <p class="alert alert-warning">{{ message }}</p>
-                        {% endfor %}
-                    {% endif %}
-                    {% macro render_field(field) %}
-                        {% for error in field.errors %}
-                            {{ error }}
-                        {% endfor %}
-                    {% endmacro %}
                     <form class="form-horizontal" method="post" action="">
                         {{ form.csrf_token }}
                         <div class="form-group">

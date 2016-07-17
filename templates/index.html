@@ -7,7 +7,8 @@ CafeBabe
 {% block body %}
 
 
-<nav class="navbar navbar-default navbar-lg navbar-Amethyst" role="navigation" style="display:none">
+<nav class="navbar navbar-default navbar-lg navbar-Amethyst" role="navigation" style="display:none"
+     xmlns="http://www.w3.org/1999/html">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-01">
@@ -32,9 +33,15 @@ CafeBabe
     </div>
 </nav><!-- /navbar -->
 
-<div class="jumbotron" style="background-color:#6684e1">
+<div class="jumbotron" style="background-color:#6684e1;">
     <div class="container">
         <h2 style="color:#E7DBDB">Wellcome to CafeBabe's World!</h2>
+        <blockquote>
+            <em>宁愿将时间花在一个公平有序的地方，</em><br>
+            <em>一个严格的能者上庸者下的地方，</em><br>
+            <em>一个只要你是对的就能赢得任何争论的地方。</em>
+        </blockquote>
+
         {#<p class="lead" style="color:#E7DBDB">wanna know more , please click </p>
             <a href="about"><button class="btn btn-default btn-wide the-font">关于我</button></a>#}
     </div>
@@ -73,22 +80,22 @@ CafeBabe
                 <ul class="pagination" style="background-color: #25b4cb">
                     <li><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
                     {% for page in range(total/5 + 1) %}
-                        {% if current_page == page %}
-                        <li class="active">
-                            <a href="/?start={{ page * 5 }}&limit=5">{{ page + 1 }}</a>
-                        </li>
-                        {% else %}
-                        <li>
-                            <a href="/?start={{ page * 5 }}&limit=5">{{ page + 1 }}</a>
-                        </li>
-                        {% end %}
+                    {% if current_page == page %}
+                    <li class="active">
+                        <a href="/?start={{ page * 5 }}&limit=5">{{ page + 1 }}</a>
+                    </li>
+                    {% else %}
+                    <li>
+                        <a href="/?start={{ page * 5 }}&limit=5">{{ page + 1 }}</a>
+                    </li>
+                    {% end %}
 
                     {% end %}
 
-{#                    <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>#}
-{#                    <li><a href="#">2 <span class="sr-only">(current)</span></a></li>#}
-{#                    <li><a href="#">3 <span class="sr-only">(current)</span></a></li>#}
-{#                    <li><a href="#">4 <span class="sr-only">(current)</span></a></li>#}
+                    {#                    <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>#}
+                    {#                    <li><a href="#">2 <span class="sr-only">(current)</span></a></li>#}
+                    {#                    <li><a href="#">3 <span class="sr-only">(current)</span></a></li>#}
+                    {#                    <li><a href="#">4 <span class="sr-only">(current)</span></a></li>#}
 
                     <li>
                         <a href="#" aria-label="Next">
