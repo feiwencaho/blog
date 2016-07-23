@@ -9,12 +9,12 @@ import tornado.options
 import tornado.web
 import os
 from tornado.options import define, options
-from handler.handler import LoginHandler, IndexHandler, EditHandler, \
+from handler.handler import LoginHandler, IndexHandler, EditHandler, TestHandler,\
     PostsHandler, CategoriesHandler, PostHandler, AboutHandler, LogoutHandler, BaseHandler, AdminIndexHandler
 from tools import session
 
 
-define('port', default=8080, help='run on the given port', type=int)
+define('port', default=80, help='run on the given port', type=int)
 
 
 class Application(tornado.web.Application):
@@ -29,6 +29,7 @@ class Application(tornado.web.Application):
             (r'/about', AboutHandler),
             (r'/logout/([0-9]+)', LogoutHandler),
             (r'/admin/index', AdminIndexHandler),
+            (r'/test', TestHandler),
             (r'/(.*?)', BaseHandler)
         ]
 
