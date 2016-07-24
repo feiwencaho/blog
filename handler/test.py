@@ -19,7 +19,10 @@ class MainHandler(tornado.web.RequestHandler):
 
 
 if __name__ == "__main__":
-    # import os
+    # pass
+    import os
+    import time
+    print time.strftime('%Y-%m-%d %H:%M:%S')
     # application = tornado.web.Application([
     #     (r"/", MainHandler),
     # ],
@@ -28,8 +31,8 @@ if __name__ == "__main__":
     # print os.path.join(os.path.dirname(__file__), 'test')
     # application.listen(8888)
     # tornado.ioloop.IOLoop.current().start()
-    ean = barcode.get('ean', '123456', ImageWriter())
-    ean.save('test')
-    for i in range(50):
-        ean = barcode.get('ean', '0000000%s' % i, ImageWriter())
-        ean.save('test/test%s' % i)
+    # ean = barcode.get('ean', '123456', ImageWriter())
+    # ean.save('test')
+    # for i in range(50):
+    #     ean = barcode.get('ean', '0000000%s' % i, ImageWriter())
+    #     ean.save('test/test%s' % i)

@@ -15,12 +15,12 @@ from tools.decorator import db_flush
 from tornado.web import authenticated
 import os
 import mistune
-
-
-import mistune
 from pygments import highlight
 from pygments.lexers import get_lexer_by_name
 from pygments.formatters import html
+import json
+import uuid
+import time
 
 class HighlightRenderer(mistune.Renderer):
     def block_code(self, code, lang):
@@ -104,6 +104,7 @@ class CategoriesHandler(BaseHandler):
         categoryname = self.get_argument('categoryname', None)
         if categoryname:
             db_table.category.create_category(categoryname=categoryname)
+            return self.redirect('/admin/index')
         else:
             raise Exception('categoryname cannot be empty!')
 
@@ -144,25 +145,35 @@ class PostsHandler(BaseHandler):
     @db_flush
     # @authenticated
     def post(self):
-        title = self.get_argument('title', None)
-        content = self.get_argument('body', None)
-        print 'title ========= ', title.encode('utf8')
-        print 'content ========== ', content.encode('utf8')
-        summary = self.get_argument('summary', None)
-        user = db_table.user.find_user_by_username(self.get_current_user())
+        print 'files ========== ', self.request.files
+        format_date = time.strftime('%Y%m%d')
+        upload_path = os.path.join(
+            os.path.dirname(os.path.dirname(__file__)), 'upload/post/%s' % format_date)
+        # 提取表单中‘name’为‘file’的文件元数据
+        file_metas = self.request.files['post']
+        # 创建博文文件夹,格式为年月日
+        if not os.path.exists(upload_path):
+            os.makedirs(upload_path)
         category_id = self.get_argument('category_id', None)
-        # db_table.category.create_category(categoryname=categoryname)
-        if db_table.category.find_category_by_id(category_id):
-            db_table.post.create_post(
-                category_id=category_id,
-                title=title,
-                summary=summary,
-                content=content,
-                user_id=user.user_id if user else 1)
-
-            return self.redirect('/edit')
-        else:
-            raise Exception('category is not existed!')
+        for meta in file_metas:
+            filename = meta['filename']
+            if filename.endswith('.md') or filename.endswith('.markdown'):
+                filename = '%s-%s' % (filename, str(uuid.uuid1()).upper())
+                filepath=os.path.join(upload_path, filename)
+                with open(filepath, 'w') as up:
+                    up.write(meta['body'])
+                title = self.get_argument('title', None)
+                summary = self.get_argument('summary', None)
+                db_table.post.create_post(
+                    category_id=category_id,
+                    title=title,
+                    summary=summary,
+                    path=filepath,
+                    create_time=1,
+                    user_id=1)
+            else:
+                raise Exception('must be markdown file!')
+        self.redirect('/admin/index')
 
 
 class PostHandler(BaseHandler):
@@ -172,15 +183,28 @@ class PostHandler(BaseHandler):
         if username:
             user = db_table.user.find_user_by_username(username)
         post = db_table.post.find_post_by_post_id(post_id)
-        return self.render('post.html', post=post, user=user)
+        content = ''
+        with open(post.path, 'r') as f:
+            while 1:
+                data = f.read(1024 * 10)
+                if data:
+                    content += data
+                else:
+                    break
+        renderer = HighlightRenderer()
+
+        markdown = mistune.Markdown(renderer=renderer)
+
+        content = markdown(content)
+        return self.render('post.html', post=post, user=user, content=content)
 
     # @authenticated
     @db_flush
     def delete(self, post_id):
-        1/0
         db_table.post.delete_post_by_post_id(post_id)
 
         posts = db_table.post.find_all_posts()
+
         # return self.render('admin_index.html', posts=posts)
         # return self.redirect('/admin/index')
         return self.write(str(post_id))
@@ -210,7 +234,7 @@ class SearchHandler(BaseHandler):
 class AdminIndexHandler(BaseHandler):
     def get(self):
         posts = db_table.post.find_all_posts()
-
-        return self.render('admin_index.html', posts=posts)
+        categorys = db_table.category.find_all_categories()
+        return self.render('admin_index.html', posts=posts, categorys=categorys)
 
 

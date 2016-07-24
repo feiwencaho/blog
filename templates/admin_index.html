@@ -32,7 +32,7 @@
                 <thead>
                 <tr>
                     <th data-options="field:'post_id',width:50,align:'center'">博文ID</th>
-                    <th data-options="field:'title',width:300,align:'center'">标题</th>
+                    <th data-options="field:'title',width:300,align:'center'">标d题</th>
                     <th data-options="field:'summary',width:400,align:'center'">概要</th>
                     <th data-options="field:'create_time',width:100,align:'center'">创建时间</th>
                     <th data-options="field:'view_counts',width:80,align:'center'">浏览次数</th>
@@ -53,9 +53,33 @@
                 {% end %}
                 </tbody>
             </table>
+            <div id="category_win" class="easyui-window" closed="true" title="新建分类"  style="width:300px;height:100px;padding:5px;">
+                <form action="/categories" method="post">
+                    <input type="text" name="categoryname" >
+                    <input type="submit" value="GO">
+                </form>
+            </div>
+            <div id="post_win" class="easyui-window" closed="true" title="新建博文"  style="width:400px;height:300px;padding:5px;">
+                <form action="/posts" enctype="multipart/form-data" method="post">
+                    <input placeholder="title" type="text" name="title">
+                    <input placeholder="summary" type="text" name="summary">
+                    <input type="file" name="post">choose a markdown file
+                    <select name="category_id">
+                        {% for category in categorys %}
+                            <option value="{{ category.category_id }}">{{ category.categoryname }}</option>
+                        {% end %}
+                    </select>
+                    <input type="submit" value="GO">
+                </form>
+            </div>
+
             <div id="tb" style="padding:5px;height:auto">
                 <div style="margin-bottom:5px">
-                    <a href="#" onclick="addTab('新建博文', '/edit');" class="easyui-linkbutton" iconCls="icon-add" plain="true"></a>
+                    <a href="#" menu="#add_menu" class="easyui-menubutton" iconCls="icon-add" plain="true">新建</a>
+                    <div id="add_menu" style="width:150px;">
+                        <div onclick="javascript:$('#category_win').window('open');">分类</div>
+                        <div onclick="javascript:$('#post_win').window('open');">博文</div>
+                    </div>
                     <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true"></a>
                     {#            <a href="#" class="easyui-linkbutton" iconCls="icon-save" plain="true"></a>#}
                     {#            <a href="#" class="easyui-linkbutton" iconCls="icon-cut" plain="true"></a>#}
