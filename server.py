@@ -10,7 +10,8 @@ import tornado.web
 import os
 from tornado.options import define, options
 from handler.handler import LoginHandler, IndexHandler, EditHandler, TestHandler,\
-    PostsHandler, CategoriesHandler, PostHandler, AboutHandler, LogoutHandler, BaseHandler, AdminIndexHandler
+    PostsHandler, CategoriesHandler, PostHandler, AboutHandler, LogoutHandler, BaseHandler, \
+    AdminIndexHandler,InServiceHandler
 from tools import session
 
 
@@ -20,6 +21,7 @@ define('port', default=80, help='run on the given port', type=int)
 class Application(tornado.web.Application):
     def __init__(self):
         handlers = [
+            (r'/(.*?)', InServiceHandler),
             (r'/', IndexHandler),
             (r'/login', LoginHandler),
             (r'/edit', EditHandler),

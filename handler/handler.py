@@ -22,6 +22,7 @@ import json
 import uuid
 import time
 
+
 class HighlightRenderer(mistune.Renderer):
     def block_code(self, code, lang):
         if not lang:
@@ -30,6 +31,12 @@ class HighlightRenderer(mistune.Renderer):
         lexer = get_lexer_by_name(lang, stripall=True)
         formatter = html.HtmlFormatter()
         return highlight(code, lexer, formatter)
+
+
+class InServiceHandler(BaseHandler):
+    def get(self, *args):
+        self.render('in_service.html')
+
 
 class TestHandler(BaseHandler):
     def get(self):
@@ -157,7 +164,7 @@ class PostsHandler(BaseHandler):
         category_id = self.get_argument('category_id', None)
         for meta in file_metas:
             filename = meta['filename']
-            if filename.endswith('.md') or filename.endswith('.markdown'):
+            if filename.endswith('.md') or filename.endswith('.markdown') or filename.endswith('.mkd'):
                 filename = '%s-%s' % (filename, str(uuid.uuid1()).upper())
                 filepath=os.path.join(upload_path, filename)
                 with open(filepath, 'w') as up:
