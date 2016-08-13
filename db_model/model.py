@@ -65,31 +65,3 @@ def rebuild_db():
 
 if __name__ == '__main__':
     rebuild_db()
-    # user = User(username='admin', password='123')
-    # get_session().add(user)
-    # get_session().commit()
-    # writer = Writer(name='33')
-    #
-    # book = Book(name='44')
-    # try:
-    #     get_session().add(writer)
-    #     # raise Exception()
-    #     get_session().add(book)
-    # except Exception as e:
-    #     get_session().rollback()
-    #     print 'rollback'
-    # finally:
-    #     get_session().flush()
-    #     get_session().flush()
-    #     get_session().flush()
-    #     get_session().flush()
-    #     get_session().flush()
-    #     get_session().commit()
-    #     get_session().close()
-    # book = get_session().query(Book).first()
-    # writer = get_session().query(Writer).first()
-    # writer.books = [book]
-    # get_session().commit()
-
-    # print get_session().query(Book).all()
-    # print get_session().query(Writer).all()
