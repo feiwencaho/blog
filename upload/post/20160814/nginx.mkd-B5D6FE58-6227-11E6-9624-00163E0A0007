@@ -1,0 +1,103 @@
+### Nginx反向代理配置
+
+```
+
+# 定义nginx运行的用户和用户组
+# user www-data;
+
+# 定义nginx进程数，一般设为cpu核数
+worker_processes auto;
+
+# 进程文件
+pid /run/nginx.pid;
+
+# 设置工作模式，和连接数上限
+events {
+    use epoll;
+	worker_connections 768;
+	# multi_accept on;
+}
+
+http {
+        
+	##
+	# Basic Settings
+	##
+        # 开启高效文件传输模式，sendfile指令指定nginx是否调用sendfile函数来输出文件，对于普通应用设为on，如果用来进行下载等应用磁盘IO重负载应用，可设为off，以平衡磁盘与网络ＩＯ处理速度，降低系统负载，ps:如果图片显示不正常把这个改为off
+	sendfile on;
+        # 防止网络阻塞
+	tcp_nopush on;
+	# 防止网络阻塞
+    tcp_nodelay on;
+
+    # 长连接超时时间，单位秒
+	keepalive_timeout 65;
+	types_hash_max_size 2048;
+	# server_tokens off;
+
+	# server_names_hash_bucket_size 64;
+	# server_name_in_redirect off;
+
+	include /etc/nginx/mime.types;
+	default_type application/octet-stream;
+
+	##
+	# SSL Settings
+	##
+
+	ssl_protocols TLSv1 TLSv1.1 TLSv1.2; # Dropping SSLv3, ref: POODLE
+	ssl_prefer_server_ciphers on;
+
+	##
+	# Logging Settings
+	##
+
+	access_log /var/log/nginx/access.log;
+	error_log /var/log/nginx/error.log;
+
+	##
+	# Gzip Settings
+	##
+
+	gzip on;
+	gzip_disable "msie6";
+
+    upstream svr {    
+        server 127.0.0.1:8080 weight=10;  
+        #server 192.168.162.11:8080 weight=8;  
+        #server 192.168.162.61:8080 weight=2;  
+    }    
+    
+    ＃server的配置可以卸载另外的文件中，在nginx.conf中include就可以了，这样也便于管理配置
+    server {    
+        listen       8888;    
+        server_name  localhost;    
+    
+        location ~ ^/nginx_status/ {    
+            stub_status on;    
+            access_log off;    
+        }    
+    
+        location / {    
+            proxy_pass http://svr;    
+        }    
+    
+        error_page   500 502 503 504  /50x.html;    
+        location = /50x.html {    
+            root   html;    
+        }    
+    
+    }   
+
+    ##
+    # Virtual Host Configs
+    ##
+
+    include /etc/nginx/conf.d/*.conf;
+    include /etc/nginx/sites-enabled/*;
+       
+}
+
+```
+
+附上nginx的[官方文档](http://nginx.org/en/docs/)
