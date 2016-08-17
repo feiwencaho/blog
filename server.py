@@ -11,8 +11,9 @@ import os
 from tornado.options import define, options
 from handler.handler import LoginHandler, IndexHandler, EditHandler, TestHandler,\
     PostsHandler, CategoriesHandler, PostHandler, AboutHandler, LogoutHandler, BaseHandler, \
-    AdminIndexHandler,InServiceHandler
+    AdminIndexHandler, InServiceHandler
 from tools import session
+import logging
 
 
 define('port', default=80, help='run on the given port', type=int)
@@ -40,26 +41,45 @@ class Application(tornado.web.Application):
             'template_path': os.path.join(os.path.dirname(__file__), 'templates'),
             'cookie_secret': 'LTUuWi7iImgJNDRdvAEB4beRGc/Qu=Wq=',
             'login_url': '/',
-            #'debug': True,
-            #'auto_reload': True,
+            'debug': True,
+            'auto_reload': True,
 
-            # session settings
+            # redis settings
             'session_secret': 'session_secret',
             'store_options': {
                 'redis_host': 'localhost',
                 'redis_port': 6379,
                 'redis_pass': '',
             },
-            'session_timeout': 60*60*24
+            'session_timeout': 60*60*24,
+
+            'upload_path': '/var/www/feiwenchao/upload/post'
         }
         tornado.web.Application.__init__(self, handlers=handlers, **settings)
         self.session_manager = session.SessionManager(
             settings['session_secret'], settings['store_options'], settings['session_timeout'])
 
 
-if __name__ == '__main__':
-    tornado.options.parse_command_line()
-    http_server = tornado.httpserver.HTTPServer(Application(), xheaders=True)
-    http_server.listen(options.port)
-    tornado.ioloop.IOLoop.instance().start()
+def log():
+    logging.basicConfig(
+        filename='/var/log/blog.log',
+        filemode='a',
+        format='%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s',
+        datefmt='%a, %d %b %Y %H:%M:%S',
+        level=logging.INFO
+    )
 
+
+if __name__ == '__main__':
+    log()
+    try:
+
+        tornado.options.parse_command_line()
+        for i in options.items():
+            print i
+
+        http_server = tornado.httpserver.HTTPServer(Application(), xheaders=True)
+        http_server.listen(options.port)
+        tornado.ioloop.IOLoop.instance().start()
+    except Exception as e:
+        logging.error(e)

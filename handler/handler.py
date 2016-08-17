@@ -21,7 +21,7 @@ from pygments.formatters import html
 import json
 import uuid
 import time
-
+import logging
 
 class HighlightRenderer(mistune.Renderer):
     def block_code(self, code, lang):
@@ -154,8 +154,7 @@ class PostsHandler(BaseHandler):
     def post(self):
         print 'files ========== ', self.request.files
         format_date = time.strftime('%Y%m%d')
-        upload_path = os.path.join(
-            os.path.dirname(os.path.dirname(__file__)), 'upload/post/%s' % format_date)
+        upload_path = os.path.join(self.settings['upload_path'], format_date)
         # 提取表单中‘name’为‘file’的文件元数据
         file_metas = self.request.files['post']
         # 创建博文文件夹,格式为年月日

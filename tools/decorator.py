@@ -1,7 +1,7 @@
 __author__ = 'fei'
 
 from db_model.model import get_session
-
+import logging
 
 def db_flush(func):
     def wrapper(*args, **kwargs):
@@ -9,6 +9,7 @@ def db_flush(func):
             results = func(*args, **kwargs)
             return results
         except Exception as e:
+            logging.error(e)
             get_session().rollback()
             args[0].render('error.html')
             raise

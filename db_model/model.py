@@ -47,8 +47,8 @@ class Post(Base):
     create_time = Column(DateTime, default=datetime.now())
 
 
-# 初始化数据库连接:
-engine = create_engine('mysql+mysqlconnector://root:123456@localhost:3306/blog', echo=True)
+# 初始化数据库连接:  打印sql：加上参数echo=True
+engine = create_engine('mysql+mysqlconnector://root:123456@localhost:3306/blog')
 # 创建DBSession类型:
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
