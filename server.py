@@ -22,7 +22,7 @@ define('port', default=80, help='run on the given port', type=int)
 class Application(tornado.web.Application):
     def __init__(self):
         handlers = [
-            (r'/(.*?)', InServiceHandler),
+            # (r'/(.*?)', InServiceHandler),
             (r'/', IndexHandler),
             (r'/login', LoginHandler),
             (r'/edit', EditHandler),
