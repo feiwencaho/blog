@@ -22,7 +22,7 @@ define('port', default=80, help='run on the given port', type=int)
 class Application(tornado.web.Application):
     def __init__(self):
         handlers = [
-            (r'/(.*?)', InServiceHandler),
+            # (r'/(.*?)', InServiceHandler),
             (r'/', IndexHandler),
             (r'/login', LoginHandler),
             (r'/edit', EditHandler),
@@ -41,8 +41,8 @@ class Application(tornado.web.Application):
             'template_path': os.path.join(os.path.dirname(__file__), 'templates'),
             'cookie_secret': 'LTUuWi7iImgJNDRdvAEB4beRGc/Qu=Wq=',
             'login_url': '/',
-            # 'debug': True,
-            # 'auto_reload': True,
+            'debug': True,
+            'auto_reload': True,
 
             # redis settings
             'session_secret': 'session_secret',
