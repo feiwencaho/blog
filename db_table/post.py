@@ -24,8 +24,13 @@ def find_post_by_post_id(post_id):
     return get_session().query(Post).filter_by(post_id=post_id).first()
 
 
-def find_posts_by_category_id(category_id):
-    return get_session().query(Post).filter_by(category_id=category_id).order_by(Post.create_time.desc()).all()
+def find_posts_by_category_id(category_id, start=None, stop=None):
+    if start is not None and stop is not None:
+        return get_session().query(Post).filter_by(category_id=category_id).\
+            order_by(Post.create_time.desc()).slice(start, stop).all()
+    else:
+        return get_session().query(Post).filter_by(category_id=category_id).\
+            order_by(Post.create_time.desc()).all()
 
 
 def delete_post_by_post_id(post_id):

@@ -15,19 +15,17 @@ class BaseHandler(tornado.web.RequestHandler):
         self.db_session = get_session()
 
     def get_current_user(self):
-        print 'username :::::::: ', self.session.get('username')
         return self.session.get('username')
 
     def get(self, arg):
-        print '404'
         self.write_error(404)
 
     def write_error(self, status_code, **kwargs):
-        print('write_error is called...')
+        print 'write_error is called...'
         print 'status_code :', status_code
         if status_code == 404:
             self.render('404.html')
-
+        print 'exc_info :', kwargs['exc_info']
         # if status_code == 500:
         #     self.render('error.html')
     # def finish(self, chunk=None):

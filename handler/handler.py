@@ -61,7 +61,6 @@ class LoginHandler(BaseHandler):
                 # self.set_secure_cookie('username', username)
                 self.session['username'] = username
                 self.session.save()
-                print 'session ================= ', self.session['username']
                 self.write('1')
         else:
             #login fail
@@ -76,18 +75,28 @@ class IndexHandler(BaseHandler):
         if username:
             user = db_table.user.find_user_by_username(username)
         current_page = 0
-        start = self.get_argument('start', None)
+        start = int(self.get_argument('start', 0))
         stop = None
-        limit = self.get_argument('limit', None)
+        limit = int(self.get_argument('limit', 5))
+
+        if start < 0:
+            start = 0
+        if limit < 0:
+            limit = 5
         if start is not None and limit is not None:
             stop = int(start) + int(limit)
             current_page = int(start) / 5
-        posts = db_table.post.find_all_posts(start=int(start) if start else None, stop=stop)
+        posts = db_table.post.find_all_posts(start=start, stop=stop)
         total = db_table.post.find_posts_count()
 
         categories = db_table.category.find_all_categories()
         return self.render('index.html',
-                           posts=posts, categories=categories, user=user, total=total, current_page=current_page)
+                           posts=posts,
+                           categories=categories,
+                           user=user,
+                           total=total,
+                           current_page=current_page,
+                           category_id=-1)
 
 
 class EditHandler(BaseHandler):
@@ -124,38 +133,41 @@ class PostsHandler(BaseHandler):
     def get(self):
         user = None
         username = self.get_current_user()
-        start = self.get_argument('start', 0)
-        limit = self.get_argument('limit', 5)
+        start = int(self.get_argument('start', 0))
+        limit = int(self.get_argument('limit', 5))
+        if start < 0:
+            start = 0
+
+        if limit < 0:
+            limit = 5
+
         # total = 10
         if username:
             user = db_table.user.find_user_by_username(username)
-        category_id = self.get_argument('category_id', None)
+        category_id = int(self.get_argument('category_id', -1))
         if category_id:
             categories = db_table.category.find_all_categories()
-            posts = db_table.post.find_posts_by_category_id(category_id)
-            total = db_table.post.find_posts_count(category_id=category_id)
+            total = db_table.post.find_posts_count(category_id=category_id if category_id != -1 else None)
             current_page = 0
-            start = self.get_argument('start', None)
-            limit = self.get_argument('limit', None)
             if start is not None and limit is not None:
                 current_page = int(start) / 5
-
-            print 'current_page ', current_page
-            print 'total ', total
-
+            if category_id == -1:
+                posts = db_table.post.find_all_posts(start=start, stop=start + limit)
+            else:
+                posts = db_table.post.find_posts_by_category_id(category_id, start=start, stop=start+limit)
             datas = dict(
                 posts=posts,
                 categories=categories,
                 user=user,
                 total=total,
-                current_page=current_page
+                current_page=current_page,
+                category_id=category_id
             )
             return self.render('index.html', **datas)
 
     @db_flush
     # @authenticated
     def post(self):
-        print 'files ========== ', self.request.files
         format_date = time.strftime('%Y%m%d')
         upload_path = os.path.join(self.settings['upload_path'], format_date)
         # 提取表单中‘name’为‘file’的文件元数据

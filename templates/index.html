@@ -78,39 +78,48 @@ CafeBabe
 
             <nav>
                 <ul class="pagination" style="background-color: #25b4cb">
-{% if current_page != 0 %}
+                    {% if current_page != 0 %}
                     <li>
-                        {% else %}
-                        <li class="disabled">
-                        {% end %}
-                        <a href="/?start={{ (current_page - 1) * 5 }}&limit=5" aria-label="Previous"><span aria-hidden="true">&laquo;</span>
+                        <a href="/posts?start={{ (current_page - 1) * 5 }}&limit=5" aria-label="Previous"><span aria-hidden="true">&laquo;</span>
                         </a>
 
                     </li>
+
+                    {% else %}
+                    <li class="disabled">
+
+                        <a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span>
+                        </a>
+
+                    </li>
+                    {% end %}
                     {% for page in range((total-1)/5 + 1) %}
                     {% if current_page == page %}
-{#1#}
                     <li class="active">
-                    {% else %}
+                        {% else %}
                     <li>
-                    {% end %}
-                        <a href="/?start={{ page * 5 }}&limit=5">{{ page + 1 }}</a>
+                        {% end %}
+                        <a href="/posts?start={{ page * 5 }}&limit=5&category_id={{ category_id }}">{{ page + 1 }}</a>
                     </li>
 
-{# 0#}
+                    {# 0#}
 
                     {% end %}
 
                     {% if current_page < range((total-1)/5 + 1)[-1] %}
                     <li>
-                    {% else %}
-                    <li class="disabled">
-                    {% end %}
-                        <a href="/?start={{ (current_page + 1) * 5 }}&limit=5" aria-label="Next">
+                        <a href="/posts?start={{ (current_page + 1) * 5 }}&limit=5" aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>
                         </a>
                     </li>
+                    {% else %}
+                    <li class="disabled">
 
+                        <a href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                    {% end %}
                 </ul>
             </nav>
         </div>
