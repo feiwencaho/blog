@@ -40,7 +40,7 @@ CafeBabe
             <em>心有猛虎，</em><br>
             <em>细嗅蔷薇。</em><br>
         </blockquote>
-{#background-color:#6684e1; #}
+        {#background-color:#6684e1; #}
         {#<p class="lead" style="color:#E7DBDB">wanna know more , please click </p>
             <a href="about"><button class="btn btn-default btn-wide the-font">关于我</button></a>#}
     </div>
@@ -75,32 +75,42 @@ CafeBabe
                 </div>
             </article>
             {% end %}
+
             <nav>
                 <ul class="pagination" style="background-color: #25b4cb">
-                    <li><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
-                    {% for page in range(total/5 + 1) %}
-                    {% if current_page == page %}
-                    <li class="active">
-                        <a href="/?start={{ page * 5 }}&limit=5">{{ page + 1 }}</a>
+{% if current_page != 0 %}
+                    <li>
+                        {% else %}
+                        <li class="disabled">
+                        {% end %}
+                        <a href="/?start={{ (current_page - 1) * 5 }}&limit=5" aria-label="Previous"><span aria-hidden="true">&laquo;</span>
+                        </a>
+
                     </li>
+                    {% for page in range((total-1)/5 + 1) %}
+                    {% if current_page == page %}
+{#1#}
+                    <li class="active">
                     {% else %}
                     <li>
+                    {% end %}
                         <a href="/?start={{ page * 5 }}&limit=5">{{ page + 1 }}</a>
                     </li>
-                    {% end %}
+
+{# 0#}
 
                     {% end %}
 
-                    {#                    <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>#}
-                    {#                    <li><a href="#">2 <span class="sr-only">(current)</span></a></li>#}
-                    {#                    <li><a href="#">3 <span class="sr-only">(current)</span></a></li>#}
-                    {#                    <li><a href="#">4 <span class="sr-only">(current)</span></a></li>#}
-
+                    {% if current_page < range((total-1)/5 + 1)[-1] %}
                     <li>
-                        <a href="#" aria-label="Next">
+                    {% else %}
+                    <li class="disabled">
+                    {% end %}
+                        <a href="/?start={{ (current_page + 1) * 5 }}&limit=5" aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>
                         </a>
                     </li>
+
                 </ul>
             </nav>
         </div>

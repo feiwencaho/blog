@@ -140,6 +140,9 @@ class PostsHandler(BaseHandler):
             if start is not None and limit is not None:
                 current_page = int(start) / 5
 
+            print 'current_page ', current_page
+            print 'total ', total
+
             datas = dict(
                 posts=posts,
                 categories=categories,
