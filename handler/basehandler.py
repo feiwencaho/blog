@@ -25,7 +25,7 @@ class BaseHandler(tornado.web.RequestHandler):
         print 'status_code :', status_code
         if status_code == 404:
             self.render('404.html')
-        print 'exc_info :', kwargs['exc_info']
+        print 'exc_info :', kwargs.get('exc_info', None)
         # if status_code == 500:
         #     self.render('error.html')
     # def finish(self, chunk=None):
