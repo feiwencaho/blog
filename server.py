@@ -40,7 +40,7 @@ class Application(tornado.web.Application):
             'static_path': os.path.join(os.path.dirname(__file__), 'static'),
             'template_path': os.path.join(os.path.dirname(__file__), 'templates'),
             'cookie_secret': 'LTUuWi7iImgJNDRdvAEB4beRGc/Qu=Wq=',
-            'login_url': '/',
+            'login_url': '/login',
             # 'debug': True,
             # 'auto_reload': True,
 
@@ -49,7 +49,7 @@ class Application(tornado.web.Application):
             'store_options': {
                 'redis_host': 'localhost',
                 'redis_port': 6379,
-                'redis_pass': '',
+                'redis_pass': '123456',
             },
             'session_timeout': 60*60*24,
 

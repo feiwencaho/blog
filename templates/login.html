@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | CafeBabe</title>
+    <link rel="stylesheet" type="text/css" href="/static/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/dist/css/flat-ui.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/mystyle.css">
+    <link rel="stylesheet" type="text/css" href="/static/default.css">
+
+    <link rel="shortcut icon" href="/static/pic/favicon.ico">
+    <link rel="bookmark" href="/static/pic/favicon.ico">
+
+    <script type="text/javascript" src="/static/dist/js/vendor/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/static/mystyle.js"></script>
+    <script type="text/javascript" src="/static/ckeditor/ckeditor.js"></script>
+</head>
+<body>
+<div class="container">
+    <form class="form-signin" action="/login" method="post">
+        <h2 class="form-signin-heading">Please sign in</h2>
+        <label for="username" class="sr-only">Username</label>
+        <input name="username" type="text" id="username" class="form-control" placeholder="Username" required autofocus>
+        <label for="password" class="sr-only">Password</label>
+        <input name="password" type="password" id="password" class="form-control" placeholder="Password" required>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" value="remember-me"> Remember me
+            </label>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+    </form>
+
+</div> <!-- /container -->
+
+
+<div style="background:#384452 none repeat scroll 0% 0%;color:#BFC9D3">
+    <div class="container">
+        <div class="row" style="padding-top:30px;">
+            <div class="col-md-7">
+                <p>网站声明：</p>
+                <p> <small>此网站作为学习交流网站，而非商业用途的网站，网站信息来自作者原创和第三方网站。任何组织或个人不得利用本网站进行违法或商业行为，违者必追究其法律责任。如果本站内容侵犯了您的专利或者权益，请联系，我们将立刻处理。</small></p>
+            </div>
+            <div class="col-md-5">
+                <div>
+                    <h5 style="margin-bottom:15px;margin-left:18px;"><strong>CONTACT ME</strong></h5>
+                    <ul>
+                        <li><a href="#"><span class=" glyphicon glyphicon-send" aria-hidden="true"></span>&nbsp E-mail:<strong>wenchaof@yahoo.com</strong></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <p> <small>沪ICP备16031177号 | CopyRight © CafeBabe 2015</small></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

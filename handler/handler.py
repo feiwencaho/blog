@@ -49,6 +49,8 @@ class TestHandler(BaseHandler):
 
 
 class LoginHandler(BaseHandler):
+    def get(self):
+        self.render('login.html')
 
     def post(self):
         username = self.get_argument('username')
@@ -61,7 +63,8 @@ class LoginHandler(BaseHandler):
                 # self.set_secure_cookie('username', username)
                 self.session['username'] = username
                 self.session.save()
-                self.write('1')
+                # self.write('1')
+                self.redirect('/admin/index')
         else:
             #login fail
             self.write('0')
@@ -100,7 +103,7 @@ class IndexHandler(BaseHandler):
 
 
 class EditHandler(BaseHandler):
-    # @authenticated
+    @authenticated
     def get(self):
         username = self.get_current_user()
         user = None
@@ -115,7 +118,7 @@ class CategoriesHandler(BaseHandler):
         pass
 
     @db_flush
-    # @authenticated
+    @authenticated
     def post(self):
         categoryname = self.get_argument('categoryname', None)
         if categoryname:
@@ -124,7 +127,7 @@ class CategoriesHandler(BaseHandler):
         else:
             raise Exception('categoryname cannot be empty!')
 
-    # @authenticated
+    @authenticated
     def delete(self, category_id):
         return db_table.category.delete_category_by_id(category_id)
 
@@ -166,7 +169,7 @@ class PostsHandler(BaseHandler):
             return self.render('index.html', **datas)
 
     @db_flush
-    # @authenticated
+    @authenticated
     def post(self):
         format_date = time.strftime('%Y%m%d')
         upload_path = os.path.join(self.settings['upload_path'], format_date)
@@ -219,7 +222,7 @@ class PostHandler(BaseHandler):
         content = markdown(content)
         return self.render('post.html', post=post, user=user, content=content)
 
-    # @authenticated
+    @authenticated
     @db_flush
     def delete(self, post_id):
         db_table.post.delete_post_by_post_id(post_id)
@@ -253,6 +256,7 @@ class SearchHandler(BaseHandler):
 
 
 class AdminIndexHandler(BaseHandler):
+    @authenticated
     def get(self):
         posts = db_table.post.find_all_posts()
         categorys = db_table.category.find_all_categories()
