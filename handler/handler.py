@@ -50,7 +50,7 @@ class TestHandler(BaseHandler):
 
 class LoginHandler(BaseHandler):
     def get(self):
-        self.render('login.html')
+        self.render('login.html', error='')
 
     def post(self):
         username = self.get_argument('username')
@@ -59,7 +59,7 @@ class LoginHandler(BaseHandler):
         u = db_table.user.find_user_by_username(username)
         if u:
             if u.password == password:
-                #login success
+                # login success
                 # self.set_secure_cookie('username', username)
                 self.session['username'] = username
                 self.session.save()
@@ -67,7 +67,7 @@ class LoginHandler(BaseHandler):
                 self.redirect('/admin/index')
         else:
             #login fail
-            self.write('0')
+            self.render('login.html', error='用户名或密码错误')
 
 
 class IndexHandler(BaseHandler):
