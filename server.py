@@ -1,3 +1,4 @@
+#! /usr/bin/python
 # encoding:utf8
 """
 Created on 2015年10月4日
