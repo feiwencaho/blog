@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
-python ../server.py 2>/dev/null &
+python ../server.py --port=80 2>/dev/null &
 
 
