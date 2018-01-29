@@ -21,40 +21,36 @@
                     <a href="/" class="btn btn-xs " style="float:right">返回首页<span class=" glyphicon glyphicon-log-out" aria-hidden="true"></span></a>
                 </div>
             </article>
-            <article class="article the-font">
-                <div class="ds-share flat" data-thread-key="{{ post.post_id }}" data-title="{{ post.title }}" data-images="http://7xlen8.com1.z0.glb.clouddn.com/avatar.jpg" data-content="{{ post.summary }}" data-url="/post/{{ post.post_id }}">
-                    <div class="ds-share-inline">
-                        <ul  class="ds-share-icons-16">
 
-                            <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
-                            <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
-                            <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
-                            <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
-                            <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
-
-                        </ul>
-                        <div class="ds-share-icons-more">
-                        </div>
+            <div class="article the-font">
+                <div class="comments">
+                    <!-- 第三方分享按钮 -->
+                    <!-- JiaThis Button BEGIN -->
+                    <div class="jiathis_style_24x24">
+                        <a class="jiathis_button_qzone"></a>
+                        <a class="jiathis_button_tsina"></a>
+                        <a class="jiathis_button_tqq"></a>
+                        <a class="jiathis_button_weixin"></a>
+                        <a class="jiathis_button_renren"></a>
+                        <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
                     </div>
+                    <script type="text/javascript" src="http://v3.jiathis.com/code_mini/jia.js" charset="utf-8"></script>
+                    <!-- JiaThis Button END -->
                 </div>
-                <!-- 多说评论框 start -->
-                <div class="ds-thread" data-thread-key="{{ post.post_id }}" data-title="{{ post.title }}" data-url="/post/{{ post.post_id }}"></div>
-                <!-- 多说评论框 end -->
-                <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+
+
+                <!--PC和WAP自适应版-->
+                <div id="SOHUCS"></div>
                 <script type="text/javascript">
-                    var duoshuoQuery = {short_name:"feiwenchao"};
-                    (function() {
-                        var ds = document.createElement('script');
-                        ds.type = 'text/javascript';
-                        ds.async = true;
-                        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-                        ds.charset = 'UTF-8';
-                        (document.getElementsByTagName('head')[0]
-                        || document.getElementsByTagName('body')[0]).appendChild(ds);
-                    })();
+                    (function(){
+                    var appid = 'cytr40we9';
+                    var conf = 'prod_3f0b0efc24682d4b59581ea6e7e8399d';
+                    var width = window.innerWidth || document.documentElement.clientWidth;
+                    if (width < 960) {
+                    window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="http://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("http://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })();
                 </script>
-                <!-- 多说公共JS代码 end -->
-            </article>
+            </div>
+
         </div>
     </div>
 </div>
