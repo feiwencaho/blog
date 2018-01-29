@@ -2,6 +2,8 @@
 <html>
 <head>
     <meta charset="utf-8">
+    <meta name="baidu-site-verification" content="BYK75hCfG7" />
+    <meta name="baidu_union_verify" content="7c22fe2bd50ac5ef37859ddbe77a5248">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{% end %} | CafeBabe</title>
     <link rel="stylesheet" type="text/css" href="/static/bootstrap/css/bootstrap.min.css">
@@ -17,35 +19,6 @@
     <script type="text/javascript" src="/static/mystyle.js"></script>
     <script type="text/javascript" src="/static/ckeditor/ckeditor.js"></script>
     <script type="text/javascript">
-
-
-        function login(){
-            username = $("#login-name").val();
-            password = $("#login-pass").val();
-            if(username=="" || password==""){
-                $("#login_error").html("<span id='login_error' style='color:red'>用户名或者密码不能为空</span>");
-                return;
-            }
-
-            $.ajax({
-                url:"/login",
-                type:"POST",
-                data:{"username":username, "password": password},
-                success:function(data){
-                    if(data == "0"){
-                        // 登录失败
-                        $("#login_error").html("<span id='login_error' style='color:red'>用户名或者密码错误</span>");
-
-                    }else if(data == "1"){
-                        // 登录成功
-                        location.href = '/edit'
-                    }
-                },
-                error:function(data){
-                    alert("出错了，请稍后重试。")
-                }
-            })
-        }
 
 
     </script>
@@ -86,10 +59,10 @@
                 <li><a href="/about">About me</a></li>
                 <li class="navbar-form navbar-right">
 
-                    <form action="/search" class="navbar-right" role="search">
+                    <form class="navbar-right" role="search">
                         <label class="sr-only">S</label>
                         <div class="form-group">
-                            <input type="text" placeholder="search">
+                            <input id="bdcsMain" style="text-indent: 5px" type="text" placeholder="search">
                         </div>
                         <div class="form-group">
                             <input class="btn btn-primary" type="submit" value="Go">
@@ -105,32 +78,6 @@
 {% block body%}
 {% end %}
 
-<div class="signin" style="height:900px;width:400px;position:fixed;top:25%;left:40%;display:none" id="vzinv_signin">
-    <div class="panel panel-success">
-        <div class="panel-heading">SIGN IN<div style="right:18px;top:18px;position:absolute" id="signup_close"><span class="glyphicon glyphicon-remove" aria-hidden="true" id="signin_close" style="cursor:pointer"></span></div></div>
-        <div class="panel-body">
-            <div class="login-form">
-                <div class="control-group">
-                    <input type="text" class="form-control" value="" placeholder="Enter your name" id="login-name" />
-                    <label class="login-field-icon fui-man-16" for="login-name"></label>
-                </div>
-
-                <div class="control-group">
-                    <input type="password" class="form-control" value="" placeholder="Password" id="login-pass" />
-                    <label class="login-field-icon fui-lock-16" for="login-pass"></label>
-                </div>
-                <label class="checkbox">
-                    <span class="icon"></span>
-                    <span class="icon-to-fade"></span>
-                    <input type="checkbox">keep alive.
-                </label>
-                <span id='login_error' style='color:red'></span>
-                <a class="btn btn-primary btn-large btn-block" href="#" onclick="login()">Login</a>
-
-            </div>
-        </div>
-    </div>
-</div>
 
 <div style="background:#384452 none repeat scroll 0% 0%;color:#BFC9D3">
     <div class="container">
@@ -154,5 +101,6 @@
     </div>
 </div>
 
+<script type="text/javascript">(function(){document.write(unescape('%3Cdiv id="bdcs"%3E%3C/div%3E'));var bdcs = document.createElement('script');bdcs.type = 'text/javascript';bdcs.async = true;bdcs.src = 'http://znsv.baidu.com/customer_search/api/js?sid=15852532764285929992' + '&plate_url=' + encodeURIComponent(window.location.href) + '&t=' + Math.ceil(new Date()/3600000);var s = document.getElementsByTagName('script')[0];s.parentNode.insertBefore(bdcs, s);})();</script>
 </body>
 </html>
