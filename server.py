@@ -12,7 +12,7 @@ import os
 from tornado.options import define, options
 from handler.handler import LoginHandler, IndexHandler, EditHandler, TestHandler,\
     PostsHandler, CategoriesHandler, PostHandler, AboutHandler, LogoutHandler, BaseHandler, \
-    AdminIndexHandler, InServiceHandler, PhotoHandler
+    AdminIndexHandler, InServiceHandler, PhotoHandler, PraiseHandler, CheckPraiseHandler
 from tools import session
 import logging
 
@@ -32,6 +32,9 @@ class Application(tornado.web.Application):
             (r'/post/([0-9]+)', PostHandler),
             (r'/photowall', PhotoHandler),
             (r'/about', AboutHandler),
+            (r'/likes', PraiseHandler),
+            (r'/check_liked', CheckPraiseHandler),
+
             (r'/logout/([0-9]+)', LogoutHandler),
             (r'/admin/index', AdminIndexHandler),
             (r'/test', TestHandler),
@@ -73,7 +76,7 @@ def log():
 
 
 if __name__ == '__main__':
-    log()
+    # log()
     try:
 
         tornado.options.parse_command_line()

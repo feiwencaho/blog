@@ -79,7 +79,7 @@ CafeBabe
 
                     {% end %}
 
-                    {% if current_page < range((total-1)/5 + 1)[-1] %}
+                    {% if total > 0 and current_page < range((total-1)/5 + 1)[-1] %}
                     <li>
                         <a href="/posts?start={{ (current_page + 1) * 5 }}&limit=5" aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>

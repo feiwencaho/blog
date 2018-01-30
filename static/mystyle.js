@@ -104,22 +104,36 @@ $(document).ready(function(){
 		$("#category_alert").css("display","block");
 	});
 
-	var flag=1;
 	$(".btn-danger").click(function(){
-		if(flag)
-		{
-			$(".btn-like-add").removeClass("btn-danger");
-			$(".btn-like-add").addClass("btn-inverse");
-			$(".btn-like-add").text("LIKED");
-			$.getJSON($SCRIPT_ROOT+'/like',
 
-				function(data){
+	    if($(".btn-like-add").text() == 'LIKED'){
+	        return;
+        }
+        $.ajax({
+            url: '/likes',
+            type: 'POST',
+            data: {},
+            success: function (responseData) {
+                $(".btn-like-add").removeClass("btn-danger");
+			    $(".btn-like-add").addClass("btn-inverse");
+			    $(".btn-like-add").text("LIKED");
+            }
+        });
 
-					$("#liked").text(data.liked);
-					flag=0;
-
-				});
-		}
+		// if(flag)
+		// {
+		// 	$(".btn-like-add").removeClass("btn-danger");
+		// 	$(".btn-like-add").addClass("btn-inverse");
+		// 	$(".btn-like-add").text("LIKED");
+		// 	$.getJSON($SCRIPT_ROOT+'/like',
+        //
+		// 		function(data){
+        //
+		// 			$("#liked").text(data.liked);
+		// 			flag=0;
+        //
+		// 		});
+		// }
 
 	});
 	$(".label").mouseover(function(){
@@ -140,13 +154,11 @@ $(document).ready(function(){
 	});
 
 	$("#category_confirm").click(function(){
-		alert(0);
 		categoryname = $("#categoryname").val().trim();
 		if(categoryname==""){
 			alert("categoryname cannot be empty!");
 			return;
 		}
-		alert(11);
 		$.ajax({
 			url:"/categories",
 			type:"POST",
@@ -162,9 +174,33 @@ $(document).ready(function(){
 				alert("error")
 			}
 		});
-		alert(22);
 	});
 
+	$.ajax({
+        url: '/check_liked',
+        type: 'GET',
+        data: {},
+        success: function (responseData) {
+            if(responseData.is_existed){
+                $(".btn-like-add").removeClass("btn-danger");
+			    $(".btn-like-add").addClass("btn-inverse");
+			    $(".btn-like-add").text("LIKED");
+            }
+        }
+
+    });
+	$.ajax({
+        url: '/likes',
+        type: 'GET',
+        data: {},
+        success: function (responseData) {
+            if(responseData.total){
+                $('#liked').html(responseData.total);
+            }
+        }
+    });
+	
+	
 	CKEDITOR.replace( 'post_content', {extraPlugins: 'codesnippet',codeSnippet_theme: 'zenburn'});
     CKEDITOR.replace( 'content', {extraPlugins: 'codesnippet',codeSnippet_theme: 'zenburn'});
 

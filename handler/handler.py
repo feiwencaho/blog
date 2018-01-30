@@ -10,6 +10,7 @@ from db_model.model import User
 import db_table.user
 import db_table.category
 import db_table.post
+import db_table.praise
 from basehandler import BaseHandler
 from tools.decorator import db_flush
 from tornado.web import authenticated
@@ -268,4 +269,20 @@ class AdminIndexHandler(BaseHandler):
         categorys = db_table.category.find_all_categories()
         return self.render('admin_index.html', posts=posts, categorys=categorys)
 
+
+class PraiseHandler(BaseHandler):
+    @db_flush
+    def post(self):
+        ip = self.request.remote_ip
+        if not db_table.praise.is_existed(ip):
+            db_table.praise.create_praise(ip)
+
+    def get(self):
+        return self.write(dict(total=522 + db_table.praise.find_praise_count()))
+
+
+class CheckPraiseHandler(BaseHandler):
+    def get(self):
+        is_existed = db_table.praise.is_existed(self.request.remote_ip)
+        return self.write(dict(is_existed=is_existed))
 

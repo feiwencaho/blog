@@ -41,7 +41,6 @@ def delete_post_by_post_id(post_id):
 def create_post(category_id, title, summary, path, create_time, user_id):
     import datetime
     now = datetime.datetime.now()
-    print now
     get_session().add(Post(
         category_id=category_id, title=title, summary=summary, path=path, create_time=now, user_id=user_id))
     get_session().flush()

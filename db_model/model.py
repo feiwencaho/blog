@@ -47,6 +47,13 @@ class Post(Base):
     create_time = Column(DateTime, default=datetime.now())
 
 
+class Praise(Base):
+    __tablename__ = 'praise'
+
+    praise_id = Column(Integer,autoincrement=True, primary_key=True)
+    ip = Column(String(64), unique=True, nullable=False)
+    create_time = Column(DateTime)
+
 # 初始化数据库连接:  打印sql：加上参数echo=True
 engine = create_engine('mysql+mysqlconnector://root:123456@localhost:3306/blog')
 # 创建DBSession类型:
