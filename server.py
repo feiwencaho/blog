@@ -12,7 +12,7 @@ import os
 from tornado.options import define, options
 from handler.handler import LoginHandler, IndexHandler, EditHandler, TestHandler,\
     PostsHandler, CategoriesHandler, PostHandler, AboutHandler, LogoutHandler, BaseHandler, \
-    AdminIndexHandler, InServiceHandler
+    AdminIndexHandler, InServiceHandler, PhotoHandler
 from tools import session
 import logging
 
@@ -30,6 +30,7 @@ class Application(tornado.web.Application):
             (r'/posts', PostsHandler),
             (r'/categories', CategoriesHandler),
             (r'/post/([0-9]+)', PostHandler),
+            (r'/photowall', PhotoHandler),
             (r'/about', AboutHandler),
             (r'/logout/([0-9]+)', LogoutHandler),
             (r'/admin/index', AdminIndexHandler),

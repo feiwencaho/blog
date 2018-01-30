@@ -255,6 +255,12 @@ class SearchHandler(BaseHandler):
         pass
 
 
+class PhotoHandler(BaseHandler):
+    def get(self):
+        self.render('photo_wall.html')
+
+
+
 class AdminIndexHandler(BaseHandler):
     @authenticated
     def get(self):
