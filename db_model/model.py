@@ -1,8 +1,6 @@
-#coding=utf8
-'''
-Created on 2015年10月4日
-@author: fei
-'''
+# coding:utf8
+
+
 from sqlalchemy.ext.declarative.api import declarative_base
 from sqlalchemy import Column,String,Integer,DateTime,create_engine,BLOB
 from sqlalchemy.orm import relationship
